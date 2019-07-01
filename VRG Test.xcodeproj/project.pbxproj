@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0463A78D22CA1BF000538F8F /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0463A78C22CA1BF000538F8F /* TableViewCell.xib */; };
 		0466304F22C6474800749A74 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466304E22C6474800749A74 /* TableViewCell.swift */; };
 		0466305122C647EA00749A74 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466305022C647EA00749A74 /* NetworkManager.swift */; };
 		0466305322C6861E00749A74 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466305222C6861E00749A74 /* WebViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0463A78C22CA1BF000538F8F /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		0466304E22C6474800749A74 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		0466305022C647EA00749A74 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0466305222C6861E00749A74 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				048A74EF22C3B4230068F140 /* Main.storyboard */,
+				0463A78C22CA1BF000538F8F /* TableViewCell.xib */,
 				0466305A22C7AFB700749A74 /* Settings */,
 				0466305922C7AF8B00749A74 /* NetworkManager */,
 				0466305822C7AF6C00749A74 /* Cell */,
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				048A74F922C3B4250068F140 /* LaunchScreen.storyboard in Resources */,
+				0463A78D22CA1BF000538F8F /* TableViewCell.xib in Resources */,
 				048A74F622C3B4250068F140 /* Assets.xcassets in Resources */,
 				048A74F122C3B4230068F140 /* Main.storyboard in Resources */,
 			);

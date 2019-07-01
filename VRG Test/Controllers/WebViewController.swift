@@ -15,10 +15,11 @@ class WebViewController: UIViewController {
     var urlSite = ""
     var titleOfArticle = ""
     var imageOfArticle = ""
-    var theBool: Bool = false
-    var myTimer: Timer?
-    var articles = [Articles]()
     
+    private var theBool: Bool = false
+    private var myTimer: Timer?
+    
+    private var articles = [Articles]()
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate // Делегат класса AppDelegate
     
     @IBOutlet weak var webView: WKWebView!
@@ -31,14 +32,12 @@ class WebViewController: UIViewController {
         funcToCallWhenStartLoadingYourWebview()
         funcToCallCalledWhenUIWebViewFinishesLoading()
         timerCallback()
-        let url = URL(string: urlSite)
-        let request = URLRequest(url: url!)
-        webView.load(request)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        loadVweView()
         let managedContext = appDelegate.persistentContainer.viewContext // Создание объекта Managed Object Context
         let fetchRequest: NSFetchRequest<Articles> = Articles.fetchRequest() // Запрос выборки по ключу Task
         
@@ -107,6 +106,12 @@ class WebViewController: UIViewController {
                 saveOutlet.isEnabled = true
             }
         }
+    }
+    
+    private func loadVweView() {
+        guard let url = URL(string: urlSite) else { return }
+        let request = URLRequest(url: url)
+        webView.load(request)
     }
     
 }

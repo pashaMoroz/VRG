@@ -9,15 +9,20 @@
 import UIKit
 import Alamofire
 
+enum NytimesApi: String {
+    case Emailed = "https://api.nytimes.com/svc/mostpopular/v2/emailed/30.json?api-key=qMfyAWPiUZdk691vvnsiDTAS2jgEQ0VF"
+    case Viewed = "https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json?api-key=qMfyAWPiUZdk691vvnsiDTAS2jgEQ0VF"
+    case Shared = "https://api.nytimes.com/svc/mostpopular/v2/shared/30.json?api-key=qMfyAWPiUZdk691vvnsiDTAS2jgEQ0VF"
+}
 
 class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var nytimes: Nytimes!
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tabBar: UITabBarItem!
-    @IBOutlet weak var activeIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var navBarTitle: UINavigationBar!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var tabBar: UITabBarItem!
+    @IBOutlet private weak var activeIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var navBarTitle: UINavigationBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,15 +50,31 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "emailedCell", for: indexPath) as! TableViewCell
+        let cell = Bundle.main.loadNibNamed("TableViewCell", owner: self)?.first as! TableViewCell
+        
+        
         
         guard let article = nytimes.results?[indexPath.row] else { return cell }
-        guard let imageURL = article.media?.first?.mediaMetadata?.first?.url else { return cell}
+        guard let imageURL = article.media?.first?.mediaMetadata?.first?.url else { return cell }
         
         cell.config(imageURL, aricle: article)
         
-        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch tabBar.tag {
+        case 0:
+            performSegue(withIdentifier: "showEmailed", sender: nil)
+        case 1:
+            performSegue(withIdentifier: "showViewed", sender: nil)
+        case 2:
+            performSegue(withIdentifier: "showShared", sender: nil)
+        default:
+            performSegue(withIdentifier: "showEmailed", sender: nil)
+        }
+   
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -64,13 +85,13 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         switch tabBar.tag {
         case 0:
-            return "https://api.nytimes.com/svc/mostpopular/v2/emailed/30.json?api-key=qMfyAWPiUZdk691vvnsiDTAS2jgEQ0VF"
+            return NytimesApi.Emailed.rawValue
         case 1:
-            return  "https://api.nytimes.com/svc/mostpopular/v2/shared/30.json?api-key=qMfyAWPiUZdk691vvnsiDTAS2jgEQ0VF"
+            return  NytimesApi.Viewed.rawValue
         case 2:
-            return  "https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json?api-key=qMfyAWPiUZdk691vvnsiDTAS2jgEQ0VF"
+            return  NytimesApi.Shared.rawValue
         default:
-            return  "https://api.nytimes.com/svc/mostpopular/v2/emailed/30.json?api-key=qMfyAWPiUZdk691vvnsiDTAS2jgEQ0VF"
+            return  NytimesApi.Shared.rawValue
         }
         
     }

@@ -11,10 +11,11 @@ import CoreData
 
 class FavoriteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-    var articles = [Articles]()
+    private var articles = [Articles]()
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var navBarTitle: UINavigationBar!
+    @IBOutlet private  var tableView: UITableView!
+    @IBOutlet private  var navBarTitle: UINavigationBar!
+    @IBOutlet private  var tabBar: UITabBarItem!
     
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate // Делегат класса AppDelegate
     
@@ -48,18 +49,28 @@ class FavoriteViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "favoritesCell", for: indexPath) as! TableViewCell
+        let cell = Bundle.main.loadNibNamed("TableViewCell", owner: self)?.first as! TableViewCell
+       
+        let article = articles[indexPath.row]
+        cell.configFavoriteCell(aricle: article)
         
-        cell.titleLabel.text = articles[indexPath.row].title
-        let url = NSURL(string: articles[indexPath.row].image!)
-        let data = NSData(contentsOf : url! as URL)
-        cell.imageView?.image = UIImage(data: data as! Data)
-        
-        return cell
+         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch tabBar.tag {
+        case 3:
+            performSegue(withIdentifier: "showDetail", sender: nil)
+        default:
+            performSegue(withIdentifier: "showDetail", sender: nil)
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

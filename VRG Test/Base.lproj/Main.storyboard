@@ -446,11 +446,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EXb-BR-7Cq"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Favorites" image="loving-message" id="19D-Rq-Vdo">
+                    <tabBarItem key="tabBarItem" tag="3" title="Favorites" image="loving-message" id="19D-Rq-Vdo">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <connections>
                         <outlet property="navBarTitle" destination="TpC-7x-1ny" id="m1Z-7U-89B"/>
+                        <outlet property="tabBar" destination="19D-Rq-Vdo" id="Bv9-FJ-zAI"/>
                         <outlet property="tableView" destination="i8k-HD-joN" id="j5Q-bI-AF1"/>
                     </connections>
                 </viewController>
