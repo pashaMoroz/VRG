@@ -11,14 +11,17 @@
 		0466304F22C6474800749A74 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466304E22C6474800749A74 /* TableViewCell.swift */; };
 		0466305122C647EA00749A74 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466305022C647EA00749A74 /* NetworkManager.swift */; };
 		0466305322C6861E00749A74 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466305222C6861E00749A74 /* WebViewController.swift */; };
-		0466305522C7648400749A74 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466305422C7648400749A74 /* FavoriteViewController.swift */; };
 		048A74EC22C3B4230068F140 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048A74EB22C3B4230068F140 /* AppDelegate.swift */; };
 		048A74EE22C3B4230068F140 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048A74ED22C3B4230068F140 /* MainVC.swift */; };
 		048A74F122C3B4230068F140 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 048A74EF22C3B4230068F140 /* Main.storyboard */; };
 		048A74F422C3B4230068F140 /* VRG_Test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 048A74F222C3B4230068F140 /* VRG_Test.xcdatamodeld */; };
 		048A74F622C3B4250068F140 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048A74F522C3B4250068F140 /* Assets.xcassets */; };
 		048A74F922C3B4250068F140 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 048A74F722C3B4250068F140 /* LaunchScreen.storyboard */; };
-		048A750122C4BD0A0068F140 /* NytimesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048A750022C4BD0A0068F140 /* NytimesModels.swift */; };
+		0496588122D0D6F200AF9D2F /* NytimesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496588022D0D6F200AF9D2F /* NytimesModel.swift */; };
+		0496588322D0D70D00AF9D2F /* ArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496588222D0D70D00AF9D2F /* ArticleModel.swift */; };
+		0496588522D0D72300AF9D2F /* MediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496588422D0D72300AF9D2F /* MediaModel.swift */; };
+		0496588722D0D73800AF9D2F /* MetadataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496588622D0D73800AF9D2F /* MetadataModel.swift */; };
+		0496588B22D0DF9600AF9D2F /* NytimesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496588A22D0DF9600AF9D2F /* NytimesApi.swift */; };
 		104C3B006B7DC2D88912A8B5 /* Pods_VRG_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABD625E425792EBA36726DDE /* Pods_VRG_Test.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,7 +30,6 @@
 		0466304E22C6474800749A74 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		0466305022C647EA00749A74 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0466305222C6861E00749A74 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		0466305422C7648400749A74 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		048A74E822C3B4230068F140 /* VRG Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VRG Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		048A74EB22C3B4230068F140 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		048A74ED22C3B4230068F140 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -36,7 +38,11 @@
 		048A74F522C3B4250068F140 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		048A74F822C3B4250068F140 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		048A74FA22C3B4250068F140 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		048A750022C4BD0A0068F140 /* NytimesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NytimesModels.swift; sourceTree = "<group>"; };
+		0496588022D0D6F200AF9D2F /* NytimesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NytimesModel.swift; sourceTree = "<group>"; };
+		0496588222D0D70D00AF9D2F /* ArticleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleModel.swift; sourceTree = "<group>"; };
+		0496588422D0D72300AF9D2F /* MediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaModel.swift; sourceTree = "<group>"; };
+		0496588622D0D73800AF9D2F /* MetadataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataModel.swift; sourceTree = "<group>"; };
+		0496588A22D0DF9600AF9D2F /* NytimesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NytimesApi.swift; sourceTree = "<group>"; };
 		3B222E4E8EFE2B4A0C636BFA /* Pods-VRG Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRG Test.debug.xcconfig"; path = "Target Support Files/Pods-VRG Test/Pods-VRG Test.debug.xcconfig"; sourceTree = "<group>"; };
 		ABD625E425792EBA36726DDE /* Pods_VRG_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VRG_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B155BA2BFC16CE8F6EA77387 /* Pods-VRG Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRG Test.release.xcconfig"; path = "Target Support Files/Pods-VRG Test/Pods-VRG Test.release.xcconfig"; sourceTree = "<group>"; };
@@ -66,7 +72,10 @@
 		0466305622C7AF2A00749A74 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				048A750022C4BD0A0068F140 /* NytimesModels.swift */,
+				0496588022D0D6F200AF9D2F /* NytimesModel.swift */,
+				0496588222D0D70D00AF9D2F /* ArticleModel.swift */,
+				0496588422D0D72300AF9D2F /* MediaModel.swift */,
+				0496588622D0D73800AF9D2F /* MetadataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -75,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				048A74ED22C3B4230068F140 /* MainVC.swift */,
-				0466305422C7648400749A74 /* FavoriteViewController.swift */,
 				0466305222C6861E00749A74 /* WebViewController.swift */,
 			);
 			path = Controllers;
@@ -93,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				0466305022C647EA00749A74 /* NetworkManager.swift */,
+				0496588A22D0DF9600AF9D2F /* NytimesApi.swift */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -265,14 +274,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0496588522D0D72300AF9D2F /* MediaModel.swift in Sources */,
 				0466305122C647EA00749A74 /* NetworkManager.swift in Sources */,
 				0466304F22C6474800749A74 /* TableViewCell.swift in Sources */,
 				048A74F422C3B4230068F140 /* VRG_Test.xcdatamodeld in Sources */,
+				0496588122D0D6F200AF9D2F /* NytimesModel.swift in Sources */,
 				048A74EE22C3B4230068F140 /* MainVC.swift in Sources */,
 				0466305322C6861E00749A74 /* WebViewController.swift in Sources */,
+				0496588322D0D70D00AF9D2F /* ArticleModel.swift in Sources */,
+				0496588722D0D73800AF9D2F /* MetadataModel.swift in Sources */,
 				048A74EC22C3B4230068F140 /* AppDelegate.swift in Sources */,
-				0466305522C7648400749A74 /* FavoriteViewController.swift in Sources */,
-				048A750122C4BD0A0068F140 /* NytimesModels.swift in Sources */,
+				0496588B22D0DF9600AF9D2F /* NytimesApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

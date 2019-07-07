@@ -10,37 +10,34 @@ import UIKit
 import WebKit
 import CoreData
 
-class WebViewController: UIViewController {
+class WebViewController: UIViewController, WKNavigationDelegate {
     
-    var urlSite = ""
-    var titleOfArticle = ""
-    var imageOfArticle = ""
+    var websiteAddress: String = ""
+    var titleOfWebsite: String = ""
+    var imageOfWebsite: String = ""
     
-    private var theBool: Bool = false
-    private var myTimer: Timer?
-    
-    private var articles = [Articles]()
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate // Делегат класса AppDelegate
     
-    @IBOutlet weak var webView: WKWebView!
-    @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var saveOutlet: UIBarButtonItem!
-    @IBOutlet weak var navBarTitle: UINavigationBar!
+    private var webPageLoaded: Bool = false
+    private var pageLoadTimer: Timer?
+    private var articles = [Articles]()
+   
+    @IBOutlet private weak var webView: WKWebView!
+    @IBOutlet private weak var saveButtonOutlet: UIBarButtonItem!
+    @IBOutlet private weak var navigationBarTitle: UINavigationBar!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        funcToCallWhenStartLoadingYourWebview()
-        funcToCallCalledWhenUIWebViewFinishesLoading()
-        timerCallback()
-        
+        setupDisplayWebView()
+        loadWebView()
+        addActivityIndToWebView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadVweView()
         let managedContext = appDelegate.persistentContainer.viewContext // Создание объекта Managed Object Context
         let fetchRequest: NSFetchRequest<Articles> = Articles.fetchRequest() // Запрос выборки по ключу Task
-        
         do {
             articles = try managedContext.fetch(fetchRequest) // Заполнение массива данными из базы
             isSaveAvialeble()
@@ -49,49 +46,21 @@ class WebViewController: UIViewController {
         }
     }
     
-    func funcToCallWhenStartLoadingYourWebview() {
-        self.progressView.progress = 0.0
-        self.theBool = false
-        self.myTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: Selector(("timerCallback")), userInfo: nil, repeats: true)
-    }
-    
-    func funcToCallCalledWhenUIWebViewFinishesLoading() {
-        self.theBool = true
-    }
-    
-    @objc func timerCallback() {
-        if self.theBool {
-            if self.progressView.progress >= 1 {
-                self.progressView.isHidden = true
-                self.myTimer?.invalidate()
-            } else {
-                self.progressView.progress += 0.1
-            }
-        } else {
-            self.progressView.progress += 0.05
-            if self.progressView.progress >= 0.95 {
-                self.progressView.progress = 0.95
-            }
-        }
-    }
-    
     @IBAction func backVC(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func saveArticle(_ sender: Any) {
-        let managedContext = appDelegate.persistentContainer.viewContext // Создание объекта Managed Object Context
-        guard let entity = NSEntityDescription.entity(forEntityName: "Articles", in: managedContext) else { return } // Создаение объекта сущности
-        let article = NSManagedObject(entity: entity, insertInto: managedContext) as! Articles // Экземпляр модели Task
-        // Присваиваем значение свойствам модели
-        article.image = imageOfArticle
-        article.title = titleOfArticle
-        article.url = urlSite
-        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        guard let entity = NSEntityDescription.entity(forEntityName: "Articles", in: managedContext) else { return }
+        let article = NSManagedObject(entity: entity, insertInto: managedContext) as! Articles
+        article.image = imageOfWebsite
+        article.title = titleOfWebsite
+        article.url = websiteAddress
         do {
             try managedContext.save()
             articles.append(article)
-            saveOutlet.isEnabled = false
+            saveButtonOutlet.isEnabled = false
         } catch let error {
             print("Failed to save task", error.localizedDescription)
         }
@@ -99,19 +68,51 @@ class WebViewController: UIViewController {
     
     private func isSaveAvialeble() {
         for art in articles {
-            if art.url == urlSite {
-                saveOutlet.isEnabled = false
+            if art.url == websiteAddress {
+                
+                saveButtonOutlet.isEnabled = false
                 return
             } else {
-                saveOutlet.isEnabled = true
+                
+                saveButtonOutlet.isEnabled = true
             }
         }
     }
     
-    private func loadVweView() {
-        guard let url = URL(string: urlSite) else { return }
+    private func loadWebView() {
+        guard let url = URL(string: websiteAddress) else { return }
         let request = URLRequest(url: url)
         webView.load(request)
     }
     
+    private func setupDisplayWebView() {
+        webView = WKWebView(frame: view.frame)
+        webView.frame =  CGRect(x: 0 , y: self.view.frame.height * 0.1, width: self.view.frame.width, height: self.view.frame.height)
+        webView.navigationDelegate = self
+        view.addSubview(webView)
+        view.addSubview(navigationBarTitle)
+    }
+    
+    private func addActivityIndToWebView() {
+        webView.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+    }
+    
+    //MARK: WKNavigationDelegate
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        activityIndicator.stopAnimating()
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        activityIndicator.stopAnimating()
+    }
+    
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        activityIndicator.startAnimating()
+    }
+    
 }
+
+

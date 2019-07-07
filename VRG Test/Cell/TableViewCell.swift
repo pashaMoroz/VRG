@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Nuke
 
 class TableViewCell: UITableViewCell {
     
@@ -15,33 +16,16 @@ class TableViewCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     
     func config(_ imageURL: String, aricle: Article) {
-        
         titleLabel.text = aricle.title
         presentImageView.layer.cornerRadius = 10
-        DispatchQueue.global().async {
-            NetworkManager.fetchDataImage(url: imageURL) { (image) in
-                DispatchQueue.main.async {
-                    self.presentImageView?.image = image
-                }
-            }
-        }
-        
+        guard let imageURL = URL(string: aricle.media?.first?.mediaMetadata?.first?.url ?? "") else { return }
+        Nuke.loadImage(with: imageURL, into: presentImageView)
     }
     
     func configFavoriteCell(aricle: Articles) {
-        
         titleLabel.text = aricle.title
         presentImageView.layer.cornerRadius = 10
-        DispatchQueue.global().async {
-            guard let imageURL = URL(string: aricle.image!) else { return }
-            guard let imageData = try? Data(contentsOf: imageURL) else { return }
-            DispatchQueue.main.async {
-                self.presentImageView?.image = UIImage(data: imageData)
-            }
-            
-        }
-        
+        guard let imageURL = URL(string: aricle.image!) else { return }
+        Nuke.loadImage(with: imageURL, into: presentImageView)
     }
-    
-    
 }

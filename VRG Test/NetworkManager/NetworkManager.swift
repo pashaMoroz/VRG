@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 
+
+
 class NetworkManager {
     
     static func fetchDataImage(url: String, completion: @escaping (UIImage) -> ()) {
@@ -18,7 +20,7 @@ class NetworkManager {
             case .success(let data):
                 guard let image = UIImage(data: data) else { return }
                 completion(image)
-            
+                
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -28,7 +30,7 @@ class NetworkManager {
     static func fetchDataWithAlamofire(url: String, completion: @escaping (Nytimes) -> ()) {
         request(url).responseData { (dataResponse) in
             switch dataResponse.result {
-            
+                
             case .success(let data):
                 guard let article = try? JSONDecoder().decode(Nytimes.self, from: data) else { return }
                 completion(article)
@@ -39,4 +41,6 @@ class NetworkManager {
         }
         
     }
+    
+    
 }

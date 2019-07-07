@@ -6,5 +6,6 @@ target 'VRG Test' do
   use_frameworks!
 
   pod 'Alamofire'
+  pod "Nuke"
 
 end
