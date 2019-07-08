@@ -14,11 +14,15 @@ import Alamofire
 class NetworkManager {
     
     static func fetchDataImage(url: String, completion: @escaping (UIImage) -> ()) {
+        
         request(url).responseData { (dataResponse) in
             switch dataResponse.result {
                 
             case .success(let data):
-                guard let image = UIImage(data: data) else { return }
+                guard let image = UIImage(data: data) else {
+                    
+                    return
+                }
                 completion(image)
                 
             case .failure(let error):
@@ -28,11 +32,15 @@ class NetworkManager {
     }
     
     static func fetchDataWithAlamofire(url: String, completion: @escaping (Nytimes) -> ()) {
+        
         request(url).responseData { (dataResponse) in
             switch dataResponse.result {
                 
             case .success(let data):
-                guard let article = try? JSONDecoder().decode(Nytimes.self, from: data) else { return }
+                guard let article = try? JSONDecoder().decode(Nytimes.self, from: data) else {
+                    
+                    return
+                }
                 completion(article)
                 
             case .failure(let error):

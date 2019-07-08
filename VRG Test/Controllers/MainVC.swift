@@ -24,6 +24,7 @@ final class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.delegate = self
         activeIndicator.startAnimating()
         activeIndicator.hidesWhenStopped = true
@@ -32,10 +33,12 @@ final class MainVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
         setupViewWillAppear()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         let detailVC = segue.destination as! WebViewController
         if segue.identifier == "showEmailed" || segue.identifier == "showViewed" || segue.identifier == "showShared" {
             
@@ -58,12 +61,14 @@ final class MainVC: UIViewController {
     }
     
     private func setupNavigationBar() {
+        
         navBarTitle.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.white,
             NSAttributedString.Key.font: UIFont(name: "American Typewriter", size: 20)!]
     }
     
     private func setupViewWillAppear() {
+        
         if self.restorationIdentifier ==  "myFavorite" {
             
             let managedContext = appDelegate.persistentContainer.viewContext // Создание объекта Managed Object Context
@@ -94,6 +99,7 @@ final class MainVC: UIViewController {
 extension MainVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if self.restorationIdentifier ==  "myFavorite" {
             
             return articles.count
@@ -112,8 +118,14 @@ extension MainVC: UITableViewDataSource {
             let article = articles[indexPath.row]
             cell.configFavoriteCell(aricle: article)
         } else {
-            guard let article = nytimes.results?[indexPath.row] else { return cell }
-            guard let imageURL = article.media?.first?.mediaMetadata?.first?.url else { return cell }
+            guard let article = nytimes.results?[indexPath.row] else {
+                
+                return cell
+            }
+            guard let imageURL = article.media?.first?.mediaMetadata?.first?.url else {
+                
+                return cell
+            }
             cell.config(imageURL, aricle: article)
         }
         
@@ -174,6 +186,7 @@ extension MainVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
         if self.restorationIdentifier ==  "myFavorite" {
             return true
         } else {

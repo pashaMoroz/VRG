@@ -29,6 +29,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupDisplayWebView()
         loadWebView()
         addActivityIndToWebView()
@@ -36,6 +37,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         let managedContext = appDelegate.persistentContainer.viewContext // Создание объекта Managed Object Context
         let fetchRequest: NSFetchRequest<Articles> = Articles.fetchRequest() // Запрос выборки по ключу Task
         do {
@@ -47,12 +49,17 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
     @IBAction func backVC(_ sender: Any) {
+        
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func saveArticle(_ sender: Any) {
+        
         let managedContext = appDelegate.persistentContainer.viewContext
-        guard let entity = NSEntityDescription.entity(forEntityName: "Articles", in: managedContext) else { return }
+        guard let entity = NSEntityDescription.entity(forEntityName: "Articles", in: managedContext) else {
+            
+            return
+        }
         let article = NSManagedObject(entity: entity, insertInto: managedContext) as! Articles
         article.image = imageOfWebsite
         article.title = titleOfWebsite
@@ -67,6 +74,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
     private func isSaveAvialeble() {
+        
         for art in articles {
             if art.url == websiteAddress {
                 
@@ -80,12 +88,14 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
     private func loadWebView() {
+        
         guard let url = URL(string: websiteAddress) else { return }
         let request = URLRequest(url: url)
         webView.load(request)
     }
     
     private func setupDisplayWebView() {
+        
         webView = WKWebView(frame: view.frame)
         webView.frame =  CGRect(x: 0 , y: self.view.frame.height * 0.1, width: self.view.frame.width, height: self.view.frame.height)
         webView.navigationDelegate = self
@@ -94,6 +104,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
     private func addActivityIndToWebView() {
+        
         webView.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
@@ -102,14 +113,17 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     //MARK: WKNavigationDelegate
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        
         activityIndicator.stopAnimating()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        
         activityIndicator.stopAnimating()
     }
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        
         activityIndicator.startAnimating()
     }
     

@@ -18,14 +18,20 @@ class TableViewCell: UITableViewCell {
     func config(_ imageURL: String, aricle: Article) {
         titleLabel.text = aricle.title
         presentImageView.layer.cornerRadius = 10
-        guard let imageURL = URL(string: aricle.media?.first?.mediaMetadata?.first?.url ?? "") else { return }
+        guard let imageURL = URL(string: aricle.media?.first?.mediaMetadata?.first?.url ?? "") else {
+            
+            return
+        }
         Nuke.loadImage(with: imageURL, into: presentImageView)
     }
     
     func configFavoriteCell(aricle: Articles) {
         titleLabel.text = aricle.title
         presentImageView.layer.cornerRadius = 10
-        guard let imageURL = URL(string: aricle.image!) else { return }
+        guard let imageURL = URL(string: aricle.image!) else {
+            
+            return
+        }
         Nuke.loadImage(with: imageURL, into: presentImageView)
     }
 }
