@@ -5,10 +5,11 @@
 //  Created by Pasha Moroz on 6/28/19.
 //  Copyright © 2019 Pavel Moroz. All rights reserved.
 //
-
 import UIKit
 import WebKit
 import CoreData
+
+
 
 class WebViewController: UIViewController, WKNavigationDelegate {
     
@@ -16,16 +17,17 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     var titleOfWebsite: String = ""
     var imageOfWebsite: String = ""
     
-    private let appDelegate = UIApplication.shared.delegate as! AppDelegate // Делегат класса AppDelegate
+    var newsViewController: NewsViewController!
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     private var webPageLoaded: Bool = false
     private var pageLoadTimer: Timer?
     private var articles = [Articles]()
-   
-    @IBOutlet private weak var webView: WKWebView!
-    @IBOutlet private weak var saveButtonOutlet: UIBarButtonItem!
-    @IBOutlet private weak var navigationBarTitle: UINavigationBar!
-    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var saveButtonOutlet: UIBarButtonItem!
+    @IBOutlet weak var navigationBarTitle: UINavigationBar!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,11 +35,13 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         setupDisplayWebView()
         loadWebView()
         addActivityIndToWebView()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        #warning("Move to presenter")
         let managedContext = appDelegate.persistentContainer.viewContext // Создание объекта Managed Object Context
         let fetchRequest: NSFetchRequest<Articles> = Articles.fetchRequest() // Запрос выборки по ключу Task
         do {
@@ -48,10 +52,13 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
+    
     @IBAction func backVC(_ sender: Any) {
         
-        dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+    
     }
+    
     
     @IBAction func saveArticle(_ sender: Any) {
         
@@ -60,8 +67,9 @@ class WebViewController: UIViewController, WKNavigationDelegate {
             
             return
         }
+         #warning("Move to presenter")
         let article = NSManagedObject(entity: entity, insertInto: managedContext) as! Articles
-        article.image = imageOfWebsite
+        article.imageURL = imageOfWebsite
         article.title = titleOfWebsite
         article.url = websiteAddress
         do {
@@ -73,7 +81,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    private func isSaveAvialeble() {
+   private func isSaveAvialeble() {
         
         for art in articles {
             if art.url == websiteAddress {
@@ -89,11 +97,15 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     
     private func loadWebView() {
         
-        guard let url = URL(string: websiteAddress) else { return }
+        guard let url = URL(string: websiteAddress) else {
+            
+            return
+        }
         let request = URLRequest(url: url)
         webView.load(request)
     }
     
+    #warning("TODO - remove")
     private func setupDisplayWebView() {
         
         webView = WKWebView(frame: view.frame)
@@ -128,5 +140,3 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
 }
-
-

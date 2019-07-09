@@ -13,7 +13,20 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+        window = UIWindow(frame: UIScreen.main.bounds)
+
+        window?.rootViewController = MainTabBar()
+
+        window?.makeKeyAndVisible()
+
+        return true
+    }
+
+    
     func applicationWillTerminate(_ application: UIApplication) {
         
         self.saveContext()
@@ -36,7 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data Saving support
 
     func saveContext() {
-        
         let context = persistentContainer.viewContext
         if context.hasChanges {
             

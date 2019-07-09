@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-
+#warning("TODO - remove unused + singletone")
 
 class NetworkManager {
     

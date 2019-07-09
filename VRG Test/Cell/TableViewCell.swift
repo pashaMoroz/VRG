@@ -12,26 +12,50 @@ import Nuke
 
 class TableViewCell: UITableViewCell {
     
+    private struct Constants {
+        
+        static let cornerRaius: CGFloat = 10
+    }
+    
     @IBOutlet var presentImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     
-    func config(_ imageURL: String, aricle: Article) {
-        titleLabel.text = aricle.title
-        presentImageView.layer.cornerRadius = 10
-        guard let imageURL = URL(string: aricle.media?.first?.mediaMetadata?.first?.url ?? "") else {
-            
-            return
-        }
-        Nuke.loadImage(with: imageURL, into: presentImageView)
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        
+        presentImageView.layer.cornerRadius = Constants.cornerRaius
     }
     
-    func configFavoriteCell(aricle: Articles) {
-        titleLabel.text = aricle.title
-        presentImageView.layer.cornerRadius = 10
-        guard let imageURL = URL(string: aricle.image!) else {
-            
-            return
-        }
-        Nuke.loadImage(with: imageURL, into: presentImageView)
-    }
+    #warning("TODO - image url")
+//        func config(_ imageURL: String, aricle: Article) {
+//            titleLabel.text = aricle.title
+//            guard let imageURL = URL(string: aricle.media?.first?.mediaMetadata?.first?.url ?? "") else {
+//
+//                return
+//            }
+//            Nuke.loadImage(with: imageURL, into: presentImageView)
+//        }
+//
+//        func configFavoriteCell(aricle: Article) {
+//            titleLabel.text = aricle.title
+//            guard let articleImage = aricle.imageURL else { return }
+//            guard let imageURL = URL(string: articleImage) else {
+//
+//                return
+//            }
+//            Nuke.loadImage(with: imageURL, into: presentImageView)
+//        }
+    
+            func configFavoriteCell(aricle: ArticleProtocol) {
+                titleLabel.text = aricle.title
+                guard let articleImage = aricle.imageURL else { return }
+                guard let imageURL = URL(string: articleImage) else {
+    
+                    return
+                }
+                Nuke.loadImage(with: imageURL, into: presentImageView)
+            }
+    
+    
 }
